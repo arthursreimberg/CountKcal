@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min, // importante
           children: [
-            Image.asset('assets/img/countkcal.png'),
+            Image.asset('assets/img/countKcal.png'),
             const SizedBox(height: 6), // espaço bem pequeno
             const CircularProgressIndicator(
               color: Color(0xFFC60000),

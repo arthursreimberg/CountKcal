@@ -30,7 +30,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   children: [
                     // Logo / Imagem
                     Image.asset(
-                      'assets/img/countkcal.png',
+                      'assets/img/countKcal.png',
                       height: 110, // tamanho da imagem
                     ),
 
