@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'cadastro.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
+  if (!kIsWeb) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashScreen(),
@@ -160,18 +167,19 @@ class _HomePageState extends State<HomePage> {
                     margin: const EdgeInsets.only(top: 30),
                     height: 50,
                     width: 350,
-                
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TelaCadastro(),  // ← substitua pelo nome da sua tela
+                            builder: (context) =>
+                                TelaCadastro(), // ← substitua pelo nome da sua tela
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 139, 32, 32), // fundo escuro
+                        backgroundColor: const Color.fromARGB(
+                            255, 139, 32, 32), // fundo escuro
                         foregroundColor: Colors.white,
                         elevation: 0, // tira sombra se não quiser
                         side: const BorderSide(
