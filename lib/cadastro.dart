@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_countkcal/services/cadastro_usu.dart';
+import 'package:flutter_countkcal/models/usuario.dart';
 
 class TelaCadastro extends StatefulWidget  {
   const TelaCadastro({super.key});
@@ -12,6 +14,7 @@ class TelaCadastro extends StatefulWidget  {
 class _TelaCadastroState extends State<TelaCadastro> {
   bool bool1 = false;
   bool bool2 = false;
+  Usuario usuario =  Usuario(nome: '', idade: 0, altura: 0, sexo: '', peso: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         if (value == null || value.trim().isEmpty) {
                           return 'Por favor, digite seu nome';
                         }
+                        usuario.nome = value.trim();
                         return null;
                       },
                     ),
@@ -59,6 +63,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         if (value == null || value.trim().isEmpty) {
                           return 'Por favor, digite seu peso';
                         }
+                        else{
+                          usuario.peso = double.parse(value);
+                        }
                         return null;
                       },
                     ),
@@ -68,11 +75,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     // CAMPO ALTURA
                     TextFormField(
                       style: GoogleFonts.brunoAce(color: Colors.white),
-                      decoration: _inputDecoration('Digite sua Altura (cm)'),
+                      decoration: _inputDecoration('Digite sua Altura (m)'),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Por favor, digite sua altura';
+                        }
+                        else{
+                          usuario.altura = double.parse(value); 
                         }
                         return null;
                       },
@@ -88,8 +98,10 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         setState(() {
                           if(bool2 == true){
                             bool2 = false;
+                            usuario.sexo = '';
                           }
                           bool1 = novoValor!;
+                          usuario.sexo = 'Masculino';
                         });
                       },
                     ),
@@ -101,14 +113,17 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         setState(() {
                           if(bool1 == true){
                             bool1 = false;
+                            usuario.sexo = '';
                           }
                           bool2 = novoValor!;
+                          usuario.sexo = 'Feminino';
                         });
                       },
                     ),
                     const SizedBox(height: 40),
                     ElevatedButton(
                       onPressed: () {
+                        //cadastrarUsu(usuario);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
