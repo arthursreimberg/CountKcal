@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'cadastro.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   if (!kIsWeb) {
@@ -28,13 +29,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    verificarPrimeiraVez();
+  }
 
-    Future.delayed(const Duration(seconds: 2), () {
+  void verificarPrimeiraVez() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool jaViuIntro = prefs.getBool('jaViuIntro') ?? false;
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (jaViuIntro) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => TelaCadastro()),
+      );
+    } else {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
-    });
+    }
   }
 
   @override
@@ -168,12 +182,14 @@ class _HomePageState extends State<HomePage> {
                     height: 50,
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('jaViuIntro', true);
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                TelaCadastro(), // ← substitua pelo nome da sua tela
+                            builder: (context) => const TelaCadastro(),
                           ),
                         );
                       },
