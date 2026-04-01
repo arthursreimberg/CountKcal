@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countkcal/perfil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_countkcal/services/cadastro_usu.dart';
+// import 'package:flutter_countkcal/services/cadastro_usu.dart';
 import 'package:flutter_countkcal/models/usuario.dart';
 
 class TelaCadastro extends StatefulWidget  {
@@ -127,7 +128,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TelaCadastro(),  // ← substitua pelo nome da sua tela
+                            builder: (context) => TelaPerfil(),  // ← substitua pelo nome da sua tela
                           ),
                         );
                       },
