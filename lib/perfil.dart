@@ -49,7 +49,7 @@ class _TelaPerfilState extends State<TelaPerfil> {
               'Seja bem-vindo $nome!',
               style: GoogleFonts.brunoAce(
                 color: Colors.white,
-                fontSize: 25
+                fontSize: 20
               ),
             ),
             const SizedBox(height: 40),
@@ -64,10 +64,10 @@ class _TelaPerfilState extends State<TelaPerfil> {
                   'Suas informações pessoais',
                   style: GoogleFonts.brunoAce(
                     color: const Color(0XFFC60000),
-                    fontSize: 18
+                    fontSize: 13
                   ), 
                   ),
-                  const SizedBox(width: 100),
+                  const SizedBox(width: 80),
                   IconButton(
                   onPressed: () {},
                   icon: Image.asset('assets/img/pencilSquare.png')
@@ -82,15 +82,15 @@ class _TelaPerfilState extends State<TelaPerfil> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  Text('Nome: $nome', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
+                  Text('Nome: $nome', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                   const SizedBox(height: 10),
-                  Text('Idade: $idade', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
+                  Text('Idade: $idade', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                   const SizedBox(height: 10),
-                  Text('Peso: $peso kg', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
+                  Text('Peso: $peso kg', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                   const SizedBox(height: 10),
-                  Text('Altura: $altura m', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
+                  Text('Altura: $altura m', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                   const SizedBox(height: 10),
-                  Text('Gênero: $genero', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
+                  Text('Gênero: $genero', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                 ],
               ),
             ),
@@ -106,10 +106,10 @@ class _TelaPerfilState extends State<TelaPerfil> {
                   'Meta de hidratação',
                   style: GoogleFonts.brunoAce(
                     color: const Color(0XFFC60000),
-                    fontSize: 18
+                    fontSize: 13
                   ), 
                   ),
-                  const SizedBox(width: 180),
+                  const SizedBox(width: 140),
                   IconButton(
                   onPressed: () {},
                   icon: Image.asset('assets/img/pencilSquare.png')
@@ -119,10 +119,10 @@ class _TelaPerfilState extends State<TelaPerfil> {
             ),
             Column(
               children: [
-                const SizedBox(height: 40),
-                Text('0/2000 ml', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 30)),
+                const SizedBox(height: 30),
+                Text('0/2000 ml', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 25)),
                 const SizedBox(height: 15),
-                Text('Se hidrate o suficiente para alcançar sua meta diária!', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 12), textAlign: TextAlign.center),
+                Text('Se hidrate o suficiente para alcançar sua meta diária!', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10), textAlign: TextAlign.center),
               ],
             ),
             const SizedBox(height: 40),
@@ -137,10 +137,10 @@ class _TelaPerfilState extends State<TelaPerfil> {
                   'Meta de macronutrientes',
                   style: GoogleFonts.brunoAce(
                     color: const Color(0XFFC60000),
-                    fontSize: 18
+                    fontSize: 13
                   ), 
                   ),
-                  const SizedBox(width: 110),
+                  const SizedBox(width: 90),
                   IconButton(
                   onPressed: () {},
                   icon: Image.asset('assets/img/pencilSquare.png')
@@ -150,35 +150,35 @@ class _TelaPerfilState extends State<TelaPerfil> {
             ),
             Column(
               children: [
-                const SizedBox(height: 40),
-                Text('Calorias', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 14)),
+                const SizedBox(height: 20),
+                Text('Calorias', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 12)),
                 const SizedBox(height: 5),
-                Text('0/1800', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 25)),
+                Text('0/1800', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 22)),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
                       children: [
-                        Text('Carboidratos', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 13)),
+                        Text('Carboidratos', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                         const SizedBox(height: 5),
-                        Text('0/200g', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 18)),
+                        Text('0/200g', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
                       ],
                     ),
                     const SizedBox(width: 30),
                     Column(
                       children: [
-                        Text('Proteínas', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 13)),
+                        Text('Proteínas', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                         const SizedBox(height: 5),
-                        Text('0/150g', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 18)),
+                        Text('0/150g', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
                       ],
                     ),
                     const SizedBox(width: 30),
                     Column(
                       children: [
-                        Text('Gorduras', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 13)),
+                        Text('Gorduras', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 10)),
                         const SizedBox(height: 5),
-                        Text('0/60g', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 18)),
+                        Text('0/60g', style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 15)),
                       ],
                     )
                   ],
