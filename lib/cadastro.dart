@@ -1,52 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countkcal/perfil.dart';
+import 'package:flutter_countkcal/services/cadastro_usu.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:flutter_countkcal/services/cadastro_usu.dart';
 import 'package:flutter_countkcal/models/usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TelaCadastro extends StatefulWidget  {
+class TelaCadastro extends StatefulWidget {
   const TelaCadastro({super.key});
-  
 
   @override
   State<TelaCadastro> createState() => _TelaCadastroState();
 }
 
 class _TelaCadastroState extends State<TelaCadastro> {
+  final _formKey = GlobalKey<FormState>();
+
   bool bool1 = false;
   bool bool2 = false;
-  Usuario usuario =  Usuario(nome: '', idade: 0, altura: 0, sexo: '', peso: 0);
+
+  Usuario usuario = Usuario(
+    nome: '',
+    idade: 0,
+    altura: 0,
+    sexo: '',
+    peso: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF2D2D2D),
-      body: SafeArea(  
+      body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400), 
-            child: SingleChildScrollView(  
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-              child: Form(  
+              child: Form(
+                key: _formKey, // ✅ IMPORTANTE
                 child: Column(
-                  mainAxisSize: MainAxisSize.min, 
-                  crossAxisAlignment: CrossAxisAlignment.stretch, 
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Logo / Imagem
                     Image.asset(
                       'assets/img/countKcal.png',
-                      height: 110, // tamanho da imagem
+                      height: 110,
                     ),
 
-                    const SizedBox(height: 48), // espaçamento maior após logo
+                    const SizedBox(height: 48),
 
-                    // CAMPO NOME
+                    // NOME
                     TextFormField(
                       style: GoogleFonts.brunoAce(color: Colors.white),
                       decoration: _inputDecoration('Digite seu Nome'),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, digite seu nome';
+                          return 'Digite seu nome';
                         }
                         usuario.nome = value.trim();
                         return null;
@@ -55,90 +64,146 @@ class _TelaCadastroState extends State<TelaCadastro> {
 
                     const SizedBox(height: 20),
 
-                    // CAMPO PESO
+                    // IDADE
                     TextFormField(
                       style: GoogleFonts.brunoAce(color: Colors.white),
-                      decoration: _inputDecoration('Digite seu peso (kg)'),
+                      decoration: _inputDecoration('Digite sua Idade'),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, digite seu peso';
+                          return 'Digite sua idade';
                         }
-                        else{
-                          usuario.peso = double.parse(value);
+
+                        usuario.idade = int.tryParse(value) ?? 0;
+
+                        if (usuario.idade <= 0) {
+                          return 'Idade inválida';
                         }
+
                         return null;
                       },
                     ),
 
                     const SizedBox(height: 20),
 
-                    // CAMPO ALTURA
+                    // PESO
+                    TextFormField(
+                      style: GoogleFonts.brunoAce(color: Colors.white),
+                      decoration: _inputDecoration('Digite seu peso (kg)'),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Digite seu peso';
+                        }
+                        usuario.peso = double.tryParse(value.replaceAll(',', '.'),) ?? 0;
+                        if (usuario.peso <= 0) {
+                          return 'Peso inválido';
+                        }
+
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // ALTURA
                     TextFormField(
                       style: GoogleFonts.brunoAce(color: Colors.white),
                       decoration: _inputDecoration('Digite sua Altura (m)'),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Por favor, digite sua altura';
+                          return 'Digite sua altura';
                         }
-                        else{
-                          usuario.altura = double.parse(value); 
+                        usuario.altura = double.tryParse(value.replaceAll(',', '.'),) ?? 0;
+                        if (usuario.altura <= 0) {
+                          return 'Altura inválida';
                         }
+
                         return null;
                       },
                     ),
 
                     const SizedBox(height: 40),
-                    Text('Gênero', style: GoogleFonts.brunoAce(color: Colors.red, fontSize: 16)),
-                    // CHECKBOX MASCULINO
+
+                    Text(
+                      'Gênero',
+                      style: GoogleFonts.brunoAce(
+                        color: Colors.red,
+                        fontSize: 16,
+                      ),
+                    ),
+
                     CheckboxListTile(
-                      title: Text("Masculino", style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 14)),
+                      title: Text("Masculino",
+                          style: GoogleFonts.brunoAce(
+                              color: Colors.white, fontSize: 14)),
                       value: bool1,
-                      onChanged: (bool? novoValor) {
+                      onChanged: (bool? value) {
                         setState(() {
-                          if(bool2 == true){
-                            bool2 = false;
-                            usuario.sexo = '';
-                          }
-                          bool1 = novoValor!;
+                          bool1 = value!;
+                          bool2 = false;
                           usuario.sexo = 'Masculino';
                         });
                       },
                     ),
-                    // CHECKBOX FEMININO
+
                     CheckboxListTile(
-                      title: Text("Feminino", style: GoogleFonts.brunoAce(color: Colors.white, fontSize: 14)),
+                      title: Text("Feminino",
+                          style: GoogleFonts.brunoAce(
+                              color: Colors.white, fontSize: 14)),
                       value: bool2,
-                      onChanged: (bool? novoValor) {
+                      onChanged: (bool? value) {
                         setState(() {
-                          if(bool1 == true){
-                            bool1 = false;
-                            usuario.sexo = '';
-                          }
-                          bool2 = novoValor!;
+                          bool2 = value!;
+                          bool1 = false;
                           usuario.sexo = 'Feminino';
                         });
                       },
                     ),
+
                     const SizedBox(height: 40),
+
                     ElevatedButton(
-                      onPressed: () {
-                        //cadastrarUsu(usuario);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TelaPerfil(),  // ← substitua pelo nome da sua tela
-                          ),
-                        );
+                      onPressed: () async {
+                        if (!_formKey.currentState!.validate()) return;
+
+                        if (usuario.sexo.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Selecione um gênero'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        try {
+                          await cadastrarUsu(usuario); // 👈 SALVA NO BANCO
+
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setBool('usuarioCadastrado', true);
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TelaPerfil(),
+                            ),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Erro ao cadastrar: $e'),
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 60),
-                        backgroundColor: const Color.fromARGB(255, 139, 32, 32), // fundo escuro
+                        backgroundColor:
+                            const Color.fromARGB(255, 139, 32, 32),
                         foregroundColor: Colors.white,
-                        elevation: 0, // tira sombra se não quiser
+                        elevation: 0,
                         side: const BorderSide(
-                          // borda vermelha
                           color: Colors.red,
                           width: 2,
                         ),
@@ -179,9 +244,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
           width: 2.0,
         ),
       ),
-      enabledBorder: OutlineInputBorder(
+      enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.grey[600]!, 
+          color: Colors.grey,
           width: 1.0,
         ),
       ),

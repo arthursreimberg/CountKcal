@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countkcal/perfil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'cadastro.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -33,23 +34,30 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void verificarPrimeiraVez() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool jaViuIntro = prefs.getBool('jaViuIntro') ?? false;
+  final prefs = await SharedPreferences.getInstance();
 
-    await Future.delayed(const Duration(seconds: 2));
+  bool jaViuIntro = prefs.getBool('jaViuIntro') ?? false;
+  bool usuarioCadastrado = prefs.getBool('usuarioCadastrado') ?? false;
 
-    if (jaViuIntro) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => TelaCadastro()),
-      );
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    }
+  await Future.delayed(const Duration(seconds: 2));
+
+  if (!jaViuIntro) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  } else if (!usuarioCadastrado) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => TelaCadastro()),
+    );
+  } else {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => TelaPerfil()),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
